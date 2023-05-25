@@ -25,7 +25,7 @@ spec:
           image: ghcr.io/pasimoes/demo:0.0.1-SNAPSHOT
           name: spring-prometheus-demo
           ports:
-            - containerPort: 80808
+            - containerPort: 8080
       imagePullSecrets:
         - name: ghcr-sec
 
@@ -47,16 +47,16 @@ spec:
       targetPort: 8080
 
 ---
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: spring-prometheus-demo-service-monitor
-spec:
-  selector:
-    matchLabels:
-      app: spring-prometheus-demo
-  endpoints:
-    - port: http-traffic
-      path: "/actuator/prometheus"
+#apiVersion: monitoring.coreos.com/v1
+#kind: ServiceMonitor
+#metadata:
+#  name: spring-prometheus-demo-service-monitor
+#spec:
+#  selector:
+#    matchLabels:
+#      app: spring-prometheus-demo
+#  endpoints:
+#    - port: http-traffic
+#      path: "/actuator/prometheus"
 
 
