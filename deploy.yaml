@@ -1,0 +1,60 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-prometheus-demo
+  labels:
+    app: spring-prometheus-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-prometheus-demo
+  template:
+    metadata:
+      labels:
+        app: spring-prometheus-demo
+    spec:
+      containers:
+        - env:
+            - name: app.container.port
+              value: "8080"
+            - name: spring.profiles.active
+              value: obaas
+        - name: spring-prometheus-demo
+          image: ghcr.io/pasimoes/demo:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: ghcr-sec
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-prometheus-demo-service
+  labels:
+    app: spring-prometheus-demo
+spec:
+  selector:
+    app: spring-prometheus-demo
+  ports:
+    - protocol: TCP
+      name: http-traffic
+      port: 8080
+      targetPort: 8080
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: spring-prometheus-demo-service-monitor
+spec:
+  selector:
+    matchLabels:
+      app: spring-prometheus-demo
+  endpoints:
+    - port: http-traffic
+      path: "/actuator/prometheus"
