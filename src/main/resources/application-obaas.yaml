@@ -5,6 +5,10 @@ spring:
   application:
     name: demo
 
+  cloud:
+    discovery:
+      enabled: false
+
 management:
   endpoint:
     health:
