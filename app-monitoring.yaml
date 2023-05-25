@@ -3,8 +3,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: spring-prometheus-demo-service-monitor
+  labels:
+    endpoint: "http"
 spec:
   selector:
+    #release:
     matchLabels:
       app: spring-prometheus-demo
   endpoints:
