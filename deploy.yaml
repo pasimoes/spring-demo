@@ -2,9 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-prometheus-demo
   labels:
     app: spring-prometheus-demo
+  name: spring-prometheus-demo
+  namespace: application
 spec:
   replicas: 1
   selector:
@@ -21,11 +22,10 @@ spec:
               value: "8080"
             - name: spring.profiles.active
               value: obaas
-        - name: spring-prometheus-demo
           image: ghcr.io/pasimoes/demo:0.0.1-SNAPSHOT
-          imagePullPolicy: Always
+          name: spring-prometheus-demo
           ports:
-            - containerPort: 8080
+            - containerPort: 80808
       imagePullSecrets:
         - name: ghcr-sec
 
@@ -58,3 +58,5 @@ spec:
   endpoints:
     - port: http-traffic
       path: "/actuator/prometheus"
+
+
