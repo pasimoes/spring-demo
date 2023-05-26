@@ -7,7 +7,7 @@ metadata:
     endpoint: "http"
 spec:
   selector:
-    #release:
+    release: stable
     matchLabels:
       app: spring-prometheus-demo
   endpoints:
