@@ -4,7 +4,7 @@ kind: ServiceMonitor
 metadata:
   name: spring-prometheus-demo-service-monitor
   labels:
-    endpoint: "http"
+    app: spring-prometheus-demo
     release: stable
 spec:
   selector:
