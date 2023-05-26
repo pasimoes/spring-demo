@@ -5,9 +5,9 @@ metadata:
   name: spring-prometheus-demo-service-monitor
   labels:
     endpoint: "http"
+    release: stable
 spec:
   selector:
-    release: stable
     matchLabels:
       app: spring-prometheus-demo
   endpoints:
